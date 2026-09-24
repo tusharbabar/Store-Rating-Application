@@ -4,14 +4,11 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
 # Environment variables
 .env
-
 # Database local files
 *.db
 storerating.db
-
 # Build outputs
 dist/
 build/

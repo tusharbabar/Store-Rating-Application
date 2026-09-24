@@ -54,7 +54,7 @@ Roxiler task/
 ├── src/
 │   ├── config/
 │   │   ├── db.js                # MySQL pool connection setup
-│   │   └── seed.js              # Database seed script
+│   │   └── seed.js             
 │   ├── controllers/
 │   │   ├── authController.js
 │   │   ├── ratingController.js
