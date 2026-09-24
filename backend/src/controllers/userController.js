@@ -7,7 +7,6 @@ const getAdminDashboard = async (req, res) => {
     const userCount = await query('SELECT COUNT(*) as count FROM users');
     const storeCount = await query('SELECT COUNT(*) as count FROM stores');
     const ratingCount = await query('SELECT COUNT(*) as count FROM ratings');
-
     res.json({
       totalUsers: userCount[0].count,
       totalStores: storeCount[0].count,
@@ -25,11 +24,9 @@ const addUser = async (req, res) => {
     errors.push('Role must be ADMIN, USER, or STORE_OWNER');
   }
   if (errors.length > 0) return res.status(400).json({ errors });
-
   try {
     const existing = await query('SELECT id FROM users WHERE email = ?', [email]);
     if (existing.length > 0) return res.status(400).json({ error: 'Email is already registered' });
-
     const hashedPassword = bcrypt.hashSync(password, 10);
     const result = await query(
       'INSERT INTO users (name, email, password, address, role, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())',
@@ -60,7 +57,6 @@ const getUsers = async (req, res) => {
       sql += ` AND u.role = ?`;
       params.push(role);
     }
-
     sql += ` GROUP BY u.id, u.name, u.email, u.address, u.role, s.id`;
     const users = await query(sql, params);
     res.json(users);
@@ -68,5 +64,6 @@ const getUsers = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 module.exports = { getAdminDashboard, addUser, getUsers };

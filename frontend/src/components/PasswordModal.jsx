@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 import { X, Lock } from 'lucide-react';
-
 export const PasswordModal = ({ isOpen, onClose, token }) => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [errors, setErrors] = useState([]);
   const [success, setSuccess] = useState('');
-
   if (!isOpen) return null;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
     setSuccess('');
-
     try {
       const res = await fetch('http://localhost:5000/api/auth/update-password', {
         method: 'PUT',
@@ -36,7 +32,6 @@ export const PasswordModal = ({ isOpen, onClose, token }) => {
       setErrors([err.message]);
     }
   };
-
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -44,19 +39,16 @@ export const PasswordModal = ({ isOpen, onClose, token }) => {
           <h3><Lock size={18} style={{ display: 'inline', marginRight: '6px' }} /> Update Password</h3>
           <X size={20} style={{ cursor: 'pointer' }} onClick={onClose} />
         </div>
-
         {errors.length > 0 && (
           <div className="error-banner">
             {errors.map((err, i) => <div key={i}>{err}</div>)}
           </div>
         )}
-
         {success && (
           <div style={{ background: 'rgba(16, 185, 129, 0.2)', color: '#34d399', padding: '0.75rem', borderRadius: '8px', marginBottom: '1rem' }}>
             {success}
           </div>
         )}
-
         <form onSubmit={handleSubmit}>
           <div className="form-control" style={{ marginBottom: '1rem' }}>
             <label style={{ fontSize: '0.85rem', color: '#94a3b8' }}>Current Password</label>
@@ -86,3 +78,7 @@ export const PasswordModal = ({ isOpen, onClose, token }) => {
     </div>
   );
 };
+
+
+
+
